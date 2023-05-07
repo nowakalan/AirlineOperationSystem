@@ -1,5 +1,6 @@
 package AirlanesTicketsOperationSystem;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -7,10 +8,7 @@ public class Menu {
         UserLoginSystem loginSystem = new UserLoginSystem();
         Scanner scanner = new Scanner(System.in);
 
-        loginSystem.userFileReader();  // wczytywanie uzytkownikow z pliku do hashMap
         try {
-
-
             System.out.println("Wybierz opcję:");
             System.out.println("1. Logowanie");
             System.out.println("2. Rejestracja");
@@ -21,10 +19,10 @@ public class Menu {
 
             switch (choice) {
                 case 1:
-                    loginSystem.loginUser("username", "password");
+                    loginSystem.loginUser();
                     break;
                 case 2:
-                    loginSystem.registerUser("username", "password");
+                    loginSystem.registerUser();
                     break;
                 case 3:
                     System.exit(100);
@@ -33,8 +31,8 @@ public class Menu {
                     System.out.println("Nieprawidłowy wybór. Wybierz ponownie.");
                     break;
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Wybierz ponownie");
+        } catch (InputMismatchException e) {
+            System.out.println("Nieprawidłowy wybór. Wybierz ponownie");
             mainMenu();
         }
 
