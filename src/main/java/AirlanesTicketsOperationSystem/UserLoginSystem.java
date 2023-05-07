@@ -61,6 +61,9 @@ public class UserLoginSystem {
 
 
         loginSystem.registerUser(userName, password);
+        loginSystem.login(userName, password);
+
+
 
     }
 }

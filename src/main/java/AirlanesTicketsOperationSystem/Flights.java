@@ -2,7 +2,7 @@ package AirlanesTicketsOperationSystem;
 
 import java.time.LocalDateTime;
 
-public class Flies {
+public class Flights {
     private String model;
     private String departureAirport;
     private String arrivalAirport;
@@ -10,7 +10,7 @@ public class Flies {
     private LocalDateTime arrivalTime;
     private int flightNumber;
 
-    public Flies(String model, String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime, int flightNumber) {
+    public Flights(String model, String departureAirport, String arrivalAirport, LocalDateTime departureTime, LocalDateTime arrivalTime, int flightNumber) {
         this.model = model;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
