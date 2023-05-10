@@ -1,7 +1,6 @@
 package AirlanesTicketsOperationSystem;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,6 +10,8 @@ public class UserLoginSystem {
     private static Map<String, User> users = new HashMap<>();
     private User currentUser;
     Menu menu = new Menu();
+
+
 
 
     public void loadUsersFromFile() {
@@ -103,7 +104,7 @@ public class UserLoginSystem {
     }
 
 
-    private void saveUsersToFile() {
+    public void saveUsersToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt", false))) {
             for (Map.Entry<String, User> entry : users.entrySet()) {
                 String username = entry.getKey();
@@ -121,6 +122,8 @@ public class UserLoginSystem {
 
     public void loginUser() {
         Scanner scanner = new Scanner(System.in);
+        String loggedInUsername;
+
         System.out.println("Logowanie użytkownika");
         System.out.print("Podaj login: ");
         String username = scanner.nextLine();
@@ -140,17 +143,23 @@ public class UserLoginSystem {
 
                 // Wywołaj odpowiednią metodę w zależności od statusu
                 if (status.equals("admin")) {
-                    System.out.println("Jestes zalogowany jako ADMINISTRATOR");
+                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako ADMINISTRATOR");
+                    loggedInUsername = user.getUsername();
                     Administrator administrator = new Administrator();
-                    administrator.wyswietlMenu();
+                    administrator.administratorMenu();
                 } else if (status.equals("assistant")) {
-                    System.out.println("Jestes zalogowany jako ASYSTENT");
+                    loggedInUsername = user.getUsername();
+                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako ASYSTENT");
                     Assistant assistant = new Assistant();
-                    //assistant.menuAssistant();    TODO    //STWORZYC METODE WYSWIETLAJACA MENU DLA ASYSTENTA
+                    assistant.assistantMenu();
                 } else if (status.equals("client")) {
-                    System.out.println("Jestes zalogowany jako klient");
+                    loggedInUsername = user.getUsername();
+                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako klient");
                     Client client = new Client();
-                    //client.menuClient();      TODO     //STWORZYC METODE WYSWIETLAJACA MENU DLA KLIENTA/PASAZERA
+
+                    client.clientMenu();     // TODO     //STWORZYC METODE WYSWIETLAJACA MENU DLA KLIENTA/PASAZERA
+                    //updateUser(user.getUsername());
+                    //saveUsersToFile();
                 } else {
                     System.out.println("Nieznany status użytkownika.");
                 }
@@ -163,4 +172,55 @@ public class UserLoginSystem {
             menu.mainMenu();
         }
     }
+
+    public void updateUser(String loggedInUsername) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Aktualne dane użytkownika:");
+
+        // Pobierz aktualne dane użytkownika
+        User currentUser = users.get(loggedInUsername);
+        String currentUsername = currentUser.getUsername();
+        String currentPassword = currentUser.getPassword();
+        String currentStatus = currentUser.getStatus();
+
+        System.out.println("Login: " + currentUsername);
+        System.out.println("Hasło: " + currentPassword);
+        System.out.println("Status: " + currentStatus);
+
+        System.out.println("Co chcesz zmienić? (1 - login, 2 - hasło):");
+        int choice = scanner.nextInt();
+
+        // Zmiana loginu
+        if (choice == 1) {
+            scanner.nextLine();
+            System.out.println("Podaj nowy login:");
+            String newUsername = scanner.nextLine();
+
+            if (users.containsKey(newUsername)) {
+                System.out.println("Podany login już istnieje. Spróbuj ponownie.");
+                updateUser(loggedInUsername); // Wróć do początku metody
+                return;
+            }
+
+            // Zaktualizuj dane użytkownika w mapie
+            users.remove(loggedInUsername);
+            users.put(newUsername, new User(newUsername, currentPassword, currentStatus));
+            System.out.println("Login został zmieniony na: " + newUsername);
+        }
+        // Zmiana hasła
+        else if (choice == 2) {
+            scanner.nextLine(); // Pobierz znak nowej linii po wczytaniu liczby
+            System.out.println("Podaj nowe hasło:");
+            String newPassword = scanner.nextLine();
+
+            // Zaktualizuj dane użytkownika w mapie
+            users.put(currentUsername, new User(currentUsername, newPassword, currentStatus));
+            System.out.println("Hasło zostało zmienione.");
+        } else {
+            System.out.println("Nieprawidłowy wybór.");
+        }
+    }
+
+
+
 }

@@ -27,7 +27,13 @@ public class Flight {
         this.availableSeats = availableSeats;
         this.ticketPrice = ticketPrice;
         this.isDelayed = isDelayed;
-    }    public String getAirlineName() {
+    }
+
+    public Flight() {
+
+    }
+
+    public String getAirlineName() {
         return airlineName;
     }    public void setAirlineName(String airlineName) {
         this.airlineName = airlineName;

@@ -11,6 +11,9 @@ public class User {
         this.status = status;
     }
 
+    public User() {
+    }
+
     public String getUsername() {
         return username;
     }
