@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 public class FlightsDatabaseWriter {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");    public static void writeFlightsDatabase(List<Flight> flightsDatabase, String filePath) {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static void writeFlightsDatabase(List<Flight> flightsDatabase, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Flight flight : flightsDatabase) {
                 writer.write(flight.getAirlineName() + ";");
