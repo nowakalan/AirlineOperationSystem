@@ -2,8 +2,9 @@ package AirlanesTicketsOperationSystem;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;// Klasa Flight - przechowująca informacje o locie
 public class Flight {
     private String airlineName;
     private int flightNumber;
