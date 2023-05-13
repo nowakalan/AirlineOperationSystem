@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Client {
 
+    UserLoginSystem userLoginSystem = new UserLoginSystem();
+
     public void clientMenu() {
         Scanner input = new Scanner(System.in);
 
@@ -39,7 +41,8 @@ public class Client {
                 //TODO
                 break;
             case 7:
-                //TODO
+                userLoginSystem.updateUser();
+                clientMenu();
                 break;
             case 8:
                 System.out.println("Do widzenia!");

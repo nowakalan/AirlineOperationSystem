@@ -9,6 +9,7 @@ public class UserLoginSystem {
     private static final String USERS_FILE_PATH = "users.txt";
     private static Map<String, User> users = new HashMap<>();
     private User currentUser;
+    public static String loggedInUsername;
     Menu menu = new Menu();
 
 
@@ -46,7 +47,7 @@ public class UserLoginSystem {
 
         if (users.containsKey(username)) {
             System.out.println("Użytkownik o podanej nazwie już istnieje.");
-            menu.mainMenu();
+            registerUser();
         }
 
         System.out.print("Podaj hasło: ");
@@ -115,7 +116,6 @@ public class UserLoginSystem {
 
     public void loginUser() {
         Scanner scanner = new Scanner(System.in);
-        String loggedInUsername;
 
         System.out.println("Logowanie użytkownika");
         System.out.print("Podaj login: ");
@@ -166,12 +166,12 @@ public class UserLoginSystem {
         }
     }
 
-    public void updateUser(String loggedInUsername) {
+    public void updateUser() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Aktualne dane użytkownika:");
 
         // Pobierz aktualne dane użytkownika
-        User currentUser = users.get(loggedInUsername);
+        currentUser = users.get(loggedInUsername);
         String currentUsername = currentUser.getUsername();
         String currentPassword = currentUser.getPassword();
         String currentStatus = currentUser.getStatus();
@@ -191,13 +191,14 @@ public class UserLoginSystem {
 
             if (users.containsKey(newUsername)) {
                 System.out.println("Podany login już istnieje. Spróbuj ponownie.");
-                updateUser(loggedInUsername); // Wróć do początku metody
+                updateUser(); // Wróć do początku metody
                 return;
             }
 
             // Zaktualizuj dane użytkownika w mapie
             users.remove(loggedInUsername);
             users.put(newUsername, new User(newUsername, currentPassword, currentStatus));
+            saveUsersToFile();
             System.out.println("Login został zmieniony na: " + newUsername);
         }
         // Zmiana hasła
