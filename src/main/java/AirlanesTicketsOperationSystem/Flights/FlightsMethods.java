@@ -2,17 +2,20 @@ package AirlanesTicketsOperationSystem.Flights;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FlightsMethods {
 
+    private static List<Flight> flightsDatabase = new ArrayList<>();
+
     // Metody umożliwiające dodawanie, edytowanie i usuwanie lotów z bazy danych
-    public static void addFlightToDatabase(List<Flight> flightsDatabase, Flight flight) {
+    public static void addFlightToDatabase(Flight flight) {
         flightsDatabase.add(flight);
         System.out.println("Lot został dodany do bazy");
     }
 
-    public static void editFlightInDatabase(List<Flight> flightsDatabase, int flightNumber) {
+    public static void editFlightInDatabase(int flightNumber) {
         for (Flight flight : flightsDatabase) {
             if (flight.getFlightNumber() == flightNumber) {
                 flight.setAirlineName(flight.getAirlineName());
@@ -30,7 +33,7 @@ public class FlightsMethods {
         System.out.println("Lot z numerem " + flightNumber + " nie został znaleziony w bazie");
     }
 
-    public static void removeFlightFromDatabase(List<Flight> flightsDatabase, int flightNumber) {
+    public static void removeFlightFromDatabase(int flightNumber) {
         for (int i = 0; i < flightsDatabase.size(); i++) {
             if (flightsDatabase.get(i).getFlightNumber() == flightNumber) {
                 flightsDatabase.remove(i);
@@ -113,4 +116,5 @@ public class FlightsMethods {
         System.out.println("Cena biletu: " + flight.getTicketPrice());
         System.out.println("Czy lot opóźniony: " + flight.isDelayed());
     }
+
 }
