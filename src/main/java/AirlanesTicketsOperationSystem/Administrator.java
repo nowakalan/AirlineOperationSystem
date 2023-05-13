@@ -1,5 +1,7 @@
 package AirlanesTicketsOperationSystem;
 
+import AirlanesTicketsOperationSystem.Flights.Flight;
+
 import java.util.Scanner;
 
 
