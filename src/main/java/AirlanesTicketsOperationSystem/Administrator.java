@@ -38,6 +38,7 @@ public class Administrator {
                     break;
                 case 5:
                     userLoginSystem.registerUser();
+                    administratorMenu();
                     break;
                 case 6:
                     System.out.println("Do widzenia!");

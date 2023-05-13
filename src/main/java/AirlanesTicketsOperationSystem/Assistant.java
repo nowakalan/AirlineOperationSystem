@@ -4,13 +4,14 @@ import java.util.Scanner;
 
  public class Assistant {
 
-         private UserLoginSystem loginSystem;
-         User user = new User();
+
 
          UserLoginSystem userLoginSystem = new UserLoginSystem();
          Flight flight = new Flight();
 
-         public void assistantMenu() {
+
+
+     public void assistantMenu() {
              Scanner input = new Scanner(System.in);
 
              System.out.println("1. Wyswietl liste lotow");
@@ -37,7 +38,8 @@ import java.util.Scanner;
                      //flight.setDelayed();
                      break;
                  case 5:
-                     loginSystem.updateUser(user.getUsername());
+                     userLoginSystem.updateUser();
+                     assistantMenu();
                      break;
                  case 6:
                      System.out.println("Do widzenia!");
