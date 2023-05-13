@@ -1,16 +1,11 @@
-
-
 package AirlanesTicketsOperationSystem;
 
 import java.util.Scanner;
 
 public class Client {
 
-
-
     public void clientMenu() {
         Scanner input = new Scanner(System.in);
-
 
         System.out.println("1. Wyswietl liste lotow");
         System.out.println("2. Kup bilet");
@@ -20,9 +15,6 @@ public class Client {
         System.out.println("6. Skontaktuj sie z asystentem");
         System.out.println("7. Zmien swoje dane logowania");
         System.out.println("8. Wyjdź z programu");
-
-
-
 
         int choose = input.nextInt();
         input.nextLine();
@@ -59,5 +51,3 @@ public class Client {
         }
     }
 }
-
-

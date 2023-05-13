@@ -10,14 +10,8 @@ public class Administrator {
     UserLoginSystem userLoginSystem = new UserLoginSystem();
     Flight flight = new Flight();
 
-
-
-
-
-
         public void administratorMenu() {
             Scanner input = new Scanner(System.in);
-
 
             System.out.println("1. Dodaj lot");
             System.out.println("2. Usuń lot");
@@ -25,9 +19,6 @@ public class Administrator {
             System.out.println("4. Wyswietl liste lotow");
             System.out.println("5. Dodaj asystenta");
             System.out.println("6. Wyjdź z programu");
-
-
-
 
             int choose = input.nextInt();
             input.nextLine();

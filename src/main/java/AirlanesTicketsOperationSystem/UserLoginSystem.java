@@ -12,8 +12,6 @@ public class UserLoginSystem {
     Menu menu = new Menu();
 
 
-
-
     public void loadUsersFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE_PATH))) {
             String line;
@@ -35,16 +33,12 @@ public class UserLoginSystem {
         }
     }
 
-
-
     public void registerUser() {
 
         User admin = new User("admin", "admin", "admin");
         users.put("admin", admin);
 
-
         Scanner scanner = new Scanner(System.in);
-
 
         System.out.println("Rejestracja użytkownika");
         System.out.print("Podaj login: ");
@@ -60,7 +54,6 @@ public class UserLoginSystem {
 
         System.out.print("Podaj status (admin, assistant, client): ");
         String status = scanner.nextLine();
-
 
 
         if (username.isEmpty() || password.isEmpty() || status.isEmpty()) {
@@ -220,7 +213,4 @@ public class UserLoginSystem {
             System.out.println("Nieprawidłowy wybór.");
         }
     }
-
-
-
 }
