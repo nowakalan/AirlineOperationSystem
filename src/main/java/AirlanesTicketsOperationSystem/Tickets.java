@@ -10,9 +10,6 @@ public class Tickets {
     private int numberOfFly;
     private String planeModel;
     private int seatNumber;
-
     private boolean isPremiumSeat;
-
     private boolean isPriorityCheck;
-
 }

@@ -1,0 +1,29 @@
+package AirlanesTicketsOperationSystem;
+
+public class User {
+    private String username;
+    private String password;
+    private String status;
+
+    public User(String username, String password, String status) {
+        this.username = username;
+        this.password = password;
+        this.status = status;
+    }
+
+    public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+}

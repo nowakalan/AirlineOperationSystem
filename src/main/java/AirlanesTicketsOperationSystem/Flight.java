@@ -14,10 +14,11 @@ public class Flight {
     private LocalDateTime arrivalDateTime;
     private int availableSeats;
     private double ticketPrice;
-    private boolean isDelayed;    public Flight(String airlineName, int flightNumber, String departureAirport,
-                                                String arrivalAirport, LocalDateTime departureDateTime,
-                                                LocalDateTime arrivalDateTime, int availableSeats,
-                                                double ticketPrice, boolean isDelayed) {
+    private boolean isDelayed;
+    public Flight(String airlineName, int flightNumber, String departureAirport,
+                  String arrivalAirport, LocalDateTime departureDateTime,
+                  LocalDateTime arrivalDateTime, int availableSeats,
+                  double ticketPrice, boolean isDelayed) {
         this.airlineName = airlineName;
         this.flightNumber = flightNumber;
         this.departureAirport = departureAirport;
@@ -27,7 +28,13 @@ public class Flight {
         this.availableSeats = availableSeats;
         this.ticketPrice = ticketPrice;
         this.isDelayed = isDelayed;
-    }    public String getAirlineName() {
+    }
+
+    public Flight() {
+
+    }
+
+    public String getAirlineName() {
         return airlineName;
     }    public void setAirlineName(String airlineName) {
         this.airlineName = airlineName;

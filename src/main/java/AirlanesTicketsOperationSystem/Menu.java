@@ -35,7 +35,5 @@ public class Menu {
             System.out.println("Nieprawidłowy wybór. Wybierz ponownie");
             mainMenu();
         }
-
     }
-
 }
