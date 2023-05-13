@@ -1,6 +1,6 @@
-package AirlanesTicketsOperationSystem;
+package AirlanesTicketsOperationSystem.Flights;
 
-import AirlanesTicketsOperationSystem.Flight;
+import AirlanesTicketsOperationSystem.Flights.Flight;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
