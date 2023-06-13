@@ -1,0 +1,5 @@
+monika,glowacz,ASSISTANT
+gracjan,bobowski,ASSISTANT
+alan,nowak,CLIENT
+admin,admin,ADMINISTRATOR
+przemek,jupa,ASSISTANT
