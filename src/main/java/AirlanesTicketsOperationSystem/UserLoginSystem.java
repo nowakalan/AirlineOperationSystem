@@ -39,6 +39,7 @@ public class UserLoginSystem {
 
     public void registerUser() {
 
+        Menu menu = new Menu();
         User admin = new User("admin", "admin", UserStatus.ADMINISTRATOR);
         users.put("admin", admin);
 
@@ -56,7 +57,7 @@ public class UserLoginSystem {
         System.out.print("Podaj hasło: ");
         String password = scanner.nextLine();
 
-        System.out.print("Podaj status (admin, assistant, client): ");
+        System.out.print("Podaj status (assistant, client): ");
         String status = scanner.nextLine();
 
 
@@ -77,10 +78,11 @@ public class UserLoginSystem {
 
                 // Sprawdź poprawność hasła administratora
                 if (enteredAdminPassword.equals(adminPassword)) {
-                    // Dodaj asystenta do mapy users
-                    User newUser = new User(username, password, UserStatus.ADMINISTRATOR);
+                    // Dodaj asystenta
+                    User newUser = new User(username, password, UserStatus.ASSISTANT);
                     users.put(username, newUser);
                     System.out.println("Konto asystenta zostało utworzone.");
+                    saveUsersToFile();
                 } else {
                     System.out.println("Nieprawidłowe hasło administratora. Nie można utworzyć konta asystenta.");
                 }
@@ -88,14 +90,15 @@ public class UserLoginSystem {
                 System.out.println("Błąd: Konto administratora nie istnieje.");
             }
         } else if (status.equals("client")) {
-            // Dodaj klienta do mapy users
-            User newUser = new User(username, password, UserStatus.ADMINISTRATOR);
+            // Dodaj clienta
+            User newUser = new User(username, password, UserStatus.CLIENT);
             users.put(username, newUser);
             System.out.println("Konto klienta zostało utworzone.");
+            saveUsersToFile();
         } else {
             System.out.println("Nieprawidłowy status.");
         }
-        saveUsersToFile(); // Zapisz użytkowników do pliku po rejestracji
+        menu.mainMenu();
     }
 
 
@@ -147,6 +150,7 @@ public class UserLoginSystem {
                 } else if (loggedInUserStatus == UserStatus.ASSISTANT) {
                     System.out.println("Witaj " + loggedInUsername + ". Jestes zalogowany jako ASYSTENT");
                     menu.assistantMenu();
+                    return currentUser;
                 } else if (loggedInUserStatus == UserStatus.CLIENT) {
                     System.out.println("Witaj " + loggedInUsername + ". Jestes zalogowany jako klient");
 
