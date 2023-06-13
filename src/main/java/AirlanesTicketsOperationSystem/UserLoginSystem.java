@@ -10,7 +10,7 @@ public class UserLoginSystem {
     private static Map<String, User> users = new HashMap<>();
     //private User loggedInUser;
     public String loggedInUsername;
-    private User currentUser;
+    public User currentUser;
     public UserStatus loggedInUserStatus;
 
 
