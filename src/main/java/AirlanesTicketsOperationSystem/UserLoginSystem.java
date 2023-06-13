@@ -8,9 +8,10 @@ import java.util.Scanner;
 public class UserLoginSystem {
     private static final String USERS_FILE_PATH = "users.txt";
     private static Map<String, User> users = new HashMap<>();
+    //private User loggedInUser;
+    public String loggedInUsername;
     private User currentUser;
-    public static String loggedInUsername;
-    Menu menu = new Menu();
+    public UserStatus loggedInUserStatus;
 
 
     public void loadUsersFromFile() {
@@ -20,7 +21,9 @@ public class UserLoginSystem {
                 String[] parts = line.split(",");
                 String username = parts[0];
                 String password = parts[1];
-                String status = parts[2];
+                String statusString = parts[2];
+
+                UserStatus status = UserStatus.valueOf(statusString.toUpperCase());
 
                 User user = new User(username, password, status);
                 users.put(username, user);
@@ -36,7 +39,7 @@ public class UserLoginSystem {
 
     public void registerUser() {
 
-        User admin = new User("admin", "admin", "admin");
+        User admin = new User("admin", "admin", UserStatus.ADMINISTRATOR);
         users.put("admin", admin);
 
         Scanner scanner = new Scanner(System.in);
@@ -75,7 +78,7 @@ public class UserLoginSystem {
                 // Sprawdź poprawność hasła administratora
                 if (enteredAdminPassword.equals(adminPassword)) {
                     // Dodaj asystenta do mapy users
-                    User newUser = new User(username, password, status);
+                    User newUser = new User(username, password, UserStatus.ADMINISTRATOR);
                     users.put(username, newUser);
                     System.out.println("Konto asystenta zostało utworzone.");
                 } else {
@@ -86,15 +89,13 @@ public class UserLoginSystem {
             }
         } else if (status.equals("client")) {
             // Dodaj klienta do mapy users
-            User newUser = new User(username, password, status);
+            User newUser = new User(username, password, UserStatus.ADMINISTRATOR);
             users.put(username, newUser);
             System.out.println("Konto klienta zostało utworzone.");
         } else {
             System.out.println("Nieprawidłowy status.");
         }
-
         saveUsersToFile(); // Zapisz użytkowników do pliku po rejestracji
-        menu.mainMenu();
     }
 
 
@@ -114,7 +115,9 @@ public class UserLoginSystem {
         }
     }
 
-    public void loginUser() {
+    public User loginUser() {
+
+        Menu menu = new Menu();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Logowanie użytkownika");
@@ -132,25 +135,22 @@ public class UserLoginSystem {
                 System.out.println("Zalogowano użytkownika: " + username);
 
                 // Pobierz status zalogowanego użytkownika
-                String status = user.getStatus();
+                loggedInUserStatus = user.getStatus();
+                loggedInUsername = username;
+                currentUser = user;
+
 
                 // Wywołaj odpowiednią metodę w zależności od statusu
-                if (status.equals("admin")) {
-                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako ADMINISTRATOR");
-                    loggedInUsername = user.getUsername();
-                    Administrator administrator = new Administrator();
-                    administrator.administratorMenu();
-                } else if (status.equals("assistant")) {
-                    loggedInUsername = user.getUsername();
-                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako ASYSTENT");
-                    Assistant assistant = new Assistant();
-                    assistant.assistantMenu();
-                } else if (status.equals("client")) {
-                    loggedInUsername = user.getUsername();
-                    System.out.println("Witaj " + user.getUsername() + ". Jestes zalogowany jako klient");
-                    Client client = new Client();
+                if (loggedInUserStatus == UserStatus.ADMINISTRATOR) {
+                    System.out.println("Witaj " + loggedInUsername + ". Jestes zalogowany jako ADMINISTRATOR");
+                    menu.administratorMenu();
+                } else if (loggedInUserStatus == UserStatus.ASSISTANT) {
+                    System.out.println("Witaj " + loggedInUsername + ". Jestes zalogowany jako ASYSTENT");
+                    menu.assistantMenu();
+                } else if (loggedInUserStatus == UserStatus.CLIENT) {
+                    System.out.println("Witaj " + loggedInUsername + ". Jestes zalogowany jako klient");
 
-                    client.clientMenu();     // TODO     //STWORZYC METODE WYSWIETLAJACA MENU DLA KLIENTA/PASAZERA
+                    //menu.clientMenu();     // TODO     //STWORZYC METODE WYSWIETLAJACA MENU DLA KLIENTA/PASAZERA
                     //updateUser(user.getUsername());
                     //saveUsersToFile();
                 } else {
@@ -164,6 +164,7 @@ public class UserLoginSystem {
             System.out.println("Użytkownik o podanej nazwie nie istnieje.");
             menu.mainMenu();
         }
+        return user;
     }
 
     public void updateUser() {
@@ -174,7 +175,7 @@ public class UserLoginSystem {
         currentUser = users.get(loggedInUsername);
         String currentUsername = currentUser.getUsername();
         String currentPassword = currentUser.getPassword();
-        String currentStatus = currentUser.getStatus();
+        UserStatus currentStatus = currentUser.getStatus();
 
         System.out.println("Login: " + currentUsername);
         System.out.println("Hasło: " + currentPassword);

@@ -104,4 +104,19 @@ public class Flight {
     public void setDelayed(boolean delayed) {
         isDelayed = delayed;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "airlineName='" + airlineName + '\'' +
+                ", flightNumber=" + flightNumber +
+                ", departureAirport='" + departureAirport + '\'' +
+                ", arrivalAirport='" + arrivalAirport + '\'' +
+                ", departureDateTime=" + departureDateTime +
+                ", arrivalDateTime=" + arrivalDateTime +
+                ", availableSeats=" + availableSeats +
+                ", ticketPrice=" + ticketPrice +
+                ", isDelayed=" + isDelayed +
+                '}';
+    }
 }
